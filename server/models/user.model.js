@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
+import logger from '../config/logger'
+import acl from 'mongoose-acl';
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -21,7 +23,13 @@ const UserSchema = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date
-    }
+    },
+    groups: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Group'
+        }
+    ]
 }, {
     timestamps: true
 });
@@ -44,13 +52,21 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if(err) {
+UserSchema.methods.comparePassword = function (candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+        if (err) {
             return cb(err);
         }
         cb(null, isMatch);
     })
 };
+
+UserSchema.plugin(acl.hybrid, {
+    public: '*',
+    key: function() {
+        return 'user:' + this._id;
+    },
+    path: '_groups'
+});
 
 module.exports = mongoose.model('User', UserSchema);

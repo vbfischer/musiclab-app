@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import acl from 'mongoose-acl';
 
-const DocumentSchema = new mongoose.Schema({
+const InstructionSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -9,15 +10,15 @@ const DocumentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    path: {
-        type: String
-    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
-    }
+    },
+    resource: String
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Document', DocumentSchema);
+InstructionSchema.plugin(acl.object);
+
+export default mongoose.model('Instruction', InstructionSchema);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Types = mongoose.Schema.Types;
+import acl from 'mongoose-acl';
 
 const JournalEntrySchema = mongoose.Schema({
     entryDate: Date,
@@ -13,5 +14,8 @@ const JournalEntrySchema = mongoose.Schema({
 }, {
     timestamps: true
 });
+
+JournalEntrySchema.plugin(acl.object);
+
 
 module.exports = mongoose.model('JournalEntry', JournalEntrySchema);

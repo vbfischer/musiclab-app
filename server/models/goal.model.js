@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Types = mongoose.Schema.Types;
-
+import ownable from './ownable.plugin';
+import acl from 'mongoose-acl';
 
 const GoalSchema = mongoose.Schema({
         name: {
@@ -11,6 +12,10 @@ const GoalSchema = mongoose.Schema({
         category: {
             type: Types.ObjectId,
             ref: 'Category'
+        },
+        user: {
+            type: Types.ObjectId,
+            ref: 'User'
         },
         tags: [{type: String}],
         description: {
@@ -35,5 +40,7 @@ const GoalSchema = mongoose.Schema({
     {
         timestamps: true
     });
+
+GoalSchema.plugin(acl.object);
 
 module.exports = mongoose.model('Goal', GoalSchema);

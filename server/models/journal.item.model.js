@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Types = mongoose.Schema.Types;
+import ownable from './ownable.plugin';
+import acl from 'mongoose-acl';
 
 const JournalItemSchema = new mongoose.Schema({
     goal: {
@@ -17,5 +19,7 @@ const JournalItemSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+JournalItemSchema.plugin(acl.object);
 
 module.exports = mongoose.model('JournalItem', JournalItemSchema);
