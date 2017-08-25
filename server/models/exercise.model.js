@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import acl from 'mongoose-acl';
 
-const InstructionSchema = new mongoose.Schema({
+const ExerciseSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -19,6 +19,6 @@ const InstructionSchema = new mongoose.Schema({
     timestamps: true
 });
 
-InstructionSchema.plugin(acl.object);
+ExerciseSchema.plugin(acl.object);
 
-export default mongoose.model('Instruction', InstructionSchema);
+export default mongoose.model('Exercise', ExerciseSchema);

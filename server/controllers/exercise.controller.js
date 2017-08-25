@@ -1,22 +1,19 @@
-import path from 'path';
-
 import {Router} from 'express';
 import Promise from 'bluebird';
 import {requireAuth} from '../config/passport';
-import {Instruction, Category} from '../models';
-import logger from '../config/logger';
-import Prismic from 'prismic-javascript';
+import {Exercise} from '../models';
+import {logger} from '../config/logger';
+
 import _ from 'lodash';
 
 const fs = Promise.promisifyAll(require('fs'));
 
 let route = Router({mergeParams: true});
 
-
 route.post('/', requireAuth, async (req, res) => {
     const {title, description, category, docUid} = req.body;
 
-    var instruction = new Instruction({
+    var exercise = new Exercise({
         title,
         description,
         category,
@@ -29,14 +26,13 @@ route.post('/', requireAuth, async (req, res) => {
         logger.info(content);
     }
 
-    await instruction.save();
+    await exercise.save();
 
-    res.json(instruction);
+    res.json(exercise);
 });
 
 
 route.get('/references', requireAuth, async (req, res) => {
-    logger.info('INFO!!');
     const docs = await req.prismic.api.query(
         [],
         {fetch: ['exercise.title', 'exercise.description']}

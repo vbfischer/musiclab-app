@@ -1,8 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import {ConnectedRouter} from 'react-router-redux';
+import {Provider} from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import configureStore from './store/configureStore';
+import {findSavedAuth} from "./auth";
+import App from './components/App';
+import {loginUserSuccess} from './actions/user';
+import './index.css';
+
+const {store, history} = configureStore();
+
+const authSession = findSavedAuth();
+
+if (authSession) {
+    store.dispatch(loginUserSuccess(authSession));
+}
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App/>
+        </ConnectedRouter>
+    </Provider>
+    , document.getElementById('root')
+);

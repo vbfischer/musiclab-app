@@ -36,7 +36,7 @@ const basicLogin = new BasicStrategy(function (userid, password, done) {
         });
     });
 });
-
+console.log(process.env.JWT_SECRET);
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: process.env.JWT_SECRET
