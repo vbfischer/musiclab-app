@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import {storiesOf} from '@storybook/react';
 
-import { Button, Welcome } from '@storybook/react/demo';
+import Grid from 'material-ui/Grid';
+import AppBar from 'material-ui/AppBar';
+import {withKnobs} from '@storybook/addon-knobs';
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
+// import 'bootstrap/dist/css/bootstrap.css';
 
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>);
+

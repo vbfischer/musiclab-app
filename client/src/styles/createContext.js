@@ -2,13 +2,20 @@ import {create} from 'jss';
 import preset from 'jss-preset-default';
 import { SheetsRegistry } from 'react-jss';
 import { createMuiTheme } from 'material-ui/styles';
-import { purple, green } from 'material-ui/colors';
+import { purple, green, blueGrey, indigo, grey } from 'material-ui/colors';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+
+const primaryColor = blueGrey;
+const secondaryColor = indigo;
 
 const theme = createMuiTheme({
     palette: {
-        primary: purple,
-        secondary: green,
+        primary: blueGrey,
+        secondary: indigo,
+        background: {
+            default: blueGrey[50],
+            appBar: '#fff'
+        }
     },
 });
 

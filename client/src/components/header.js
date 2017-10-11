@@ -1,53 +1,49 @@
 import React from 'react';
-import './Header.css';
+import {withStyles} from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+import Avatar from 'material-ui/Avatar';
+import deepOrange from 'material-ui/colors/deepOrange';
+import deepPurple from 'material-ui/colors/deepPurple';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
+const styles = {
+    root: {
+        //width: '100%',
+    },
+    avatar: {
+        margin: 10,
+    },
+    orangeAvatar: {
+        margin: 10,
+        color: '#fff',
+        backgroundColor: deepOrange[500],
+    },
+    purpleAvatar: {
+        margin: 10,
+        color: '#fff',
+        backgroundColor: deepPurple[500],
+    },
+    row: {
+        display: 'flex',
+        justifyContent: 'center',
     }
+};
 
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
+const Header = (props) => {
+    const classes = props.classes;
+    return (
+        <AppBar color="default" elevation="1" position="static" className={classes.root}>
+            <Toolbar>
+                <IconButton aria-label="Menu">
+                    <MenuIcon/>
+                </IconButton>
+                <Avatar className={classes.orangeAvatar}>N</Avatar>
+            </Toolbar>
+        </AppBar>
+    );
+};
 
-    render() {
-        return (
-            <nav className="navbar-expand-md navbar navbar-light bg-light fixed-top">
-                <button type="button" className="navbar-toggler navbar-toggler-right">
-                    <span className="navbar-toggler-icon"/>
-                </button>
-                <a href="/" className="navbar-brand">{this.props.appName}</a>
-                <div className="collapse navbar-collapse">
-                    <ul className="mr-auto navbar-nav">
-                        <li className="nav-item">
-                            <a href="#" className="nav-link">Goals</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="#" className="nav-link">Library</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="#" className="nav-link">History</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="#" className="nav-link">Charts</a>
-                        </li>
-                    </ul>
-                </div>
-                <ul className="ml-auto navbar-nav">
-                    <li className="nav-item">
-                        <a href="#" className="nav-link" onClick={this.props.onLogout}>Logout</a>
-                    </li>
-                </ul>
-            </nav>
-        )
-    }
-}
-
-export default Header;
+export default withStyles(styles)(Header);

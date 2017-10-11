@@ -28,8 +28,14 @@ const Auth = {
 
 };
 
+const Exercises = {
+    getAll: () =>
+        requests.get('/exercise/references')
+};
+
 export default {
     Auth,
+    Exercises,
     setToken: _token => {
         token = _token;
     }

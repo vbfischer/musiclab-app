@@ -4,9 +4,8 @@ import thunk from 'redux-thunk';
 import {applyMiddleware, createStore, combineReducers, compose} from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import createHistory from 'history/createBrowserHistory'
-
 import {localStorageMiddleware} from "../middleware";
-import {auth, common} from '../reducers';
+import {auth, common, exercises} from '../reducers';
 
 export default function configureStore() {
     const history = createHistory();
@@ -16,7 +15,7 @@ export default function configureStore() {
         applyMiddleware(middleware, promiseMiddleware(), localStorageMiddleware, thunk, createLogger())
     );
 
-    const reducer = combineReducers({auth, common, router: routerReducer});
+    const reducer = combineReducers({auth, common, exercises, router: routerReducer});
     const store = createStore(reducer, enhancer);
 
     return {

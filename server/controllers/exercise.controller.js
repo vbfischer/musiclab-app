@@ -32,7 +32,7 @@ route.post('/', requireAuth, async (req, res) => {
 });
 
 
-route.get('/references', requireAuth, async (req, res) => {
+route.get('/references', async (req, res) => {
     const docs = await req.prismic.api.query(
         [],
         {fetch: ['exercise.title', 'exercise.description']}
